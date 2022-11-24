@@ -452,11 +452,11 @@ export interface AccessPolicyRequireSaml {
 
 export interface AccessRuleConfiguration {
     /**
-     * The request property to target. Available values: `ip`, `ip6`, `ipRange`, `asn`, `country`.
+     * The request property to target. Available values: `ip`, `ip6`, `ipRange`, `asn`, `country`. **Modifying this attribute will force creation of a new resource.**
      */
     target: string;
     /**
-     * The value to target. Depends on target's type.
+     * The value to target. Depends on target's type. **Modifying this attribute will force creation of a new resource.**
      */
     value: string;
 }
@@ -614,14 +614,20 @@ export interface DevicePostureIntegrationConfig {
 }
 
 export interface DevicePostureRuleInput {
+    /**
+     * The workspace one device compliance status.
+     */
     complianceStatus?: string;
+    /**
+     * The workspace one connection id.
+     */
     connectionId?: string;
     /**
-     * = (Required) The domain that the client must join.
+     * The domain that the client must join.
      */
     domain?: string;
     /**
-     * = (Required) True if the firewall must be enabled.
+     * True if the firewall must be enabled.
      */
     enabled: boolean;
     /**
@@ -633,15 +639,23 @@ export interface DevicePostureRuleInput {
      */
     id?: string;
     /**
-     * = (Required) The version comparison operator in (>,>=,<,<=,==)
+     * The version comparison operator.
      */
     operator?: string;
     /**
-     * The path to the application.
+     * The operating system excluding version information.
+     */
+    osDistroName?: string;
+    /**
+     * The operating system version excluding OS name information or release name.
+     */
+    osDistroRevision?: string;
+    /**
+     * The path to the file.
      */
     path?: string;
     /**
-     * = (Required) True if all drives must be encrypted.
+     * True if all drives must be encrypted.
      */
     requireAll: boolean;
     /**
@@ -653,43 +667,49 @@ export interface DevicePostureRuleInput {
      */
     sha256?: string;
     /**
-     * The thumbprint of the application certificate.
+     * The thumbprint of the file certificate.
      */
     thumbprint?: string;
     /**
-     * = (Required) The operating system semantic version.
+     * The operating system semantic version.
      */
     version?: string;
 }
 
 export interface DevicePostureRuleMatch {
     /**
-     * The platform of the device. Valid values are `windows`, `mac`, `linux`, `android`, and `ios`.
+     * The platform of the device. Available values: `windows`, `mac`, `linux`, `android`, `ios`, `chromeos`.
      */
     platform?: string;
 }
 
 export interface FallbackDomainDomain {
     /**
-     * The description of the domain.
+     * A description of the fallback domain, displayed in the client UI.
      */
     description?: string;
     /**
-     * The DNS servers to receive the redirected request.
+     * A list of IP addresses to handle domain resolution.
      */
     dnsServers?: string[];
     /**
-     * The domain to ignore DNS requests.
+     * The domain suffix to match when resolving locally.
      */
     suffix?: string;
 }
 
 export interface GetAccountRolesRole {
+    /**
+     * Description of role's permissions
+     */
     description?: string;
     /**
-     * The ID of this resource.
+     * Role identifier tag
      */
     id?: string;
+    /**
+     * Role Name
+     */
     name?: string;
 }
 
@@ -707,106 +727,250 @@ export interface GetAccountsAccount {
 }
 
 export interface GetDevicesDevice {
+    /**
+     * When the device was created.
+     */
     created?: string;
+    /**
+     * The type of the device.
+     */
     deviceType?: string;
     /**
-     * The ID of this resource.
+     * Device ID.
      */
     id?: string;
+    /**
+     * IPv4 or IPv6 address.
+     */
     ip?: string;
+    /**
+     * The device's public key.
+     */
     key?: string;
+    /**
+     * When the device was last seen.
+     */
     lastSeen?: string;
+    /**
+     * The device model name.
+     */
     model?: string;
+    /**
+     * The device name.
+     */
     name?: string;
+    osDistroName?: string;
+    osDistroRevision?: string;
+    /**
+     * The operating system version.
+     */
     osVersion?: string;
+    /**
+     * When the device was updated.
+     */
     updated?: string;
+    /**
+     * User's email.
+     */
     userEmail?: string;
+    /**
+     * User's ID.
+     */
     userId?: string;
+    /**
+     * User's Name.
+     */
     userName?: string;
+    /**
+     * The WARP client version.
+     */
     version?: string;
 }
 
 export interface GetWafGroupsFilter {
+    /**
+     * Mode of the WAF Rule Groups to lookup. Valid values: on and off.
+     */
     mode?: string;
+    /**
+     * A regular expression matching the name of the WAF Rule Groups to lookup.
+     */
     name?: string;
 }
 
 export interface GetWafGroupsGroup {
+    /**
+     * The WAF Rule Group description
+     */
     description?: string;
     /**
-     * The ID of this resource.
+     * The WAF Rule Group ID
      */
     id?: string;
+    /**
+     * Mode of the WAF Rule Groups to lookup. Valid values: on and off.
+     */
     mode?: string;
+    /**
+     * The number of modified rules in the WAF Rule Group
+     */
     modifiedRulesCount?: number;
+    /**
+     * A regular expression matching the name of the WAF Rule Groups to lookup.
+     */
     name?: string;
+    /**
+     * The ID of the WAF Rule Package in which to search for the WAF Rule Groups.
+     */
     packageId?: string;
+    /**
+     * The number of rules in the WAF Rule Group
+     */
     rulesCount?: number;
 }
 
 export interface GetWafPackagesFilter {
+    /**
+     * Action mode of the WAF Rule Packages to lookup. Valid values: simulate, block and challenge.
+     */
     actionMode?: string;
+    /**
+     * Detection mode of the WAF Rule Packages to lookup.
+     */
     detectionMode?: string;
+    /**
+     * A regular expression matching the name of the WAF Rule Packages to lookup.
+     */
     name?: string;
+    /**
+     * Sensitivity of the WAF Rule Packages to lookup. Valid values: high, medium, low and off.
+     */
     sensitivity?: string;
 }
 
 export interface GetWafPackagesPackage {
+    /**
+     * Action mode of the WAF Rule Packages to lookup. Valid values: simulate, block and challenge.
+     */
     actionMode?: string;
+    /**
+     * The WAF Rule Package description
+     */
     description?: string;
+    /**
+     * Detection mode of the WAF Rule Packages to lookup.
+     */
     detectionMode?: string;
     /**
-     * The ID of this resource.
+     * The WAF Rule Package ID
      */
     id?: string;
+    /**
+     * A regular expression matching the name of the WAF Rule Packages to lookup.
+     */
     name?: string;
+    /**
+     * Sensitivity of the WAF Rule Packages to lookup. Valid values: high, medium, low and off.
+     */
     sensitivity?: string;
 }
 
 export interface GetWafRulesFilter {
+    /**
+     * A regular expression matching the description of the WAF Rules to lookup.
+     */
     description?: string;
+    /**
+     * The ID of the WAF Rule Group in which the WAF Rules to lookup have to be.
+     */
     groupId?: string;
+    /**
+     * Mode of the WAF Rules to lookup. Valid values: one of ["block", "challenge", "default", "disable", "simulate"] or ["on", "off"] depending on the WAF Rule type.
+     */
     mode?: string;
 }
 
 export interface GetWafRulesRule {
+    /**
+     * The list of allowed `mode` values for the WAF Rule
+     */
     allowedModes?: string[];
+    /**
+     * The default `mode` value for the WAF Rule
+     */
     defaultMode?: string;
+    /**
+     * A regular expression matching the description of the WAF Rules to lookup.
+     */
     description?: string;
+    /**
+     * The ID of the WAF Rule Group in which the WAF Rules to lookup have to be.
+     */
     groupId?: string;
+    /**
+     * The Name of the WAF Rule Group that contains the WAF Rule
+     */
     groupName?: string;
     /**
-     * The ID of this resource.
+     * The WAF Rule ID
      */
     id?: string;
+    /**
+     * Mode of the WAF Rules to lookup. Valid values: one of ["block", "challenge", "default", "disable", "simulate"] or ["on", "off"] depending on the WAF Rule type.
+     */
     mode?: string;
+    /**
+     * The ID of the WAF Rule Package in which to search for the WAF Rules.
+     */
     packageId?: string;
+    /**
+     * The WAF Rule priority
+     */
     priority?: string;
 }
 
 export interface GetZonesFilter {
     /**
-     * The account identifier to target for the resource.
+     * Only search for zones in this account.
      */
     accountId?: string;
     /**
-     * Defaults to `exact`.
+     * The type of search to perform for the `name` value
+     * when querying the zone API. Valid values: `"exact"` and `"contains"`. Defaults
+     * to `"exact"`.
      */
     lookupType?: string;
+    /**
+     * A RE2 compatible regular expression to filter the
+     * results. This is performed client side whereas the `name` and `lookupType`
+     * are performed on the Cloudflare server side.
+     */
     match?: string;
+    /**
+     * A string value to search for.
+     */
     name?: string;
     /**
-     * Defaults to `false`.
+     * Paused status of the zone to lookup. Valid values are
+     * `true` or `false`.
      */
     paused?: boolean;
+    /**
+     * Status of the zone to lookup. Valid values: `"active"`,
+     * `"pending"`, `"initializing"`, `"moved"`, `"deleted"`, `"deactivated"` and
+     * `"read only"`.
+     */
     status?: string;
 }
 
 export interface GetZonesZone {
     /**
-     * The ID of this resource.
+     * The zone ID
      */
     id?: string;
+    /**
+     * A string value to search for.
+     */
     name?: string;
 }
 
@@ -855,15 +1019,33 @@ export interface ListItemValueRedirect {
     targetUrl: string;
 }
 
+export interface LoadBalancerAdaptiveRouting {
+    /**
+     * Extends zero-downtime failover of requests to healthy origins from alternate pools, when no healthy alternate exists in the same pool, according to the failover order defined by traffic and origin steering. When set `false`, zero-downtime failover will only occur between origins within the same pool. Defaults to `false`.
+     */
+    failoverAcrossPools?: boolean;
+}
+
 export interface LoadBalancerCountryPool {
     /**
      * A country code which can be determined with the Load Balancing Regions API described [here](https://developers.cloudflare.com/load-balancing/reference/region-mapping-api/). Multiple entries should not be specified with the same country.
      */
     country: string;
     /**
-     * A list of pool IDs in failover priority to use for traffic reaching the given PoP.
+     * A list of pool IDs in failover priority to use in the given country.
      */
     poolIds: string[];
+}
+
+export interface LoadBalancerLocationStrategy {
+    /**
+     * Determines the authoritative location when ECS is not preferred, does not exist in the request, or its GeoIP lookup is unsuccessful. Value `pop` will use the Cloudflare PoP location. Value `resolverIp` will use the DNS resolver GeoIP location. If the GeoIP lookup is unsuccessful, it will use the Cloudflare PoP location. Available values: `pop`, `resolverIp`. Defaults to `pop`.
+     */
+    mode?: string;
+    /**
+     * Whether the EDNS Client Subnet (ECS) GeoIP should be preferred as the authoritative location. Value `always` will always prefer ECS, `never` will never prefer ECS, `proximity` will prefer ECS only when `steering_policy="proximity"`, and `geo` will prefer ECS only when `steering_policy="geo"`. Available values: `always`, `never`, `proximity`, `geo`. Defaults to `proximity`.
+     */
+    preferEcs?: string;
 }
 
 export interface LoadBalancerMonitorHeader {
@@ -948,9 +1130,20 @@ export interface LoadBalancerPopPool {
     pop: string;
 }
 
+export interface LoadBalancerRandomSteering {
+    /**
+     * The default weight for pools in the load balancer that are not specified in the `poolWeights` map.
+     */
+    defaultWeight?: number;
+    /**
+     * A mapping of pool IDs to custom weights. The weight is relative to other pools in the load balancer.
+     */
+    poolWeights?: {[key: string]: number};
+}
+
 export interface LoadBalancerRegionPool {
     /**
-     * A list of pool IDs in failover priority to use for traffic reaching the given PoP.
+     * A list of pool IDs in failover priority to use in the given region.
      */
     poolIds: string[];
     /**
@@ -961,15 +1154,15 @@ export interface LoadBalancerRegionPool {
 
 export interface LoadBalancerRule {
     /**
-     * The statement to evaluate to determine if this rules effects should be applied. An empty condition is always true. See [load balancing rules](https://developers.cloudflare.com/load-balancing/understand-basics/load-balancing-rules).
+     * The statement to evaluate to determine if this rule's effects should be applied. An empty condition is always true. See [load balancing rules](https://developers.cloudflare.com/load-balancing/understand-basics/load-balancing-rules).
      */
     condition?: string;
     /**
-     * A disabled rule will be be executed.
+     * A disabled rule will not be executed.
      */
     disabled?: boolean;
     /**
-     * Settings for a HTTP response to return directly to the eyeball if the condition is true. Note: overrides or fixedResponse must be set. See the field documentation below.
+     * Settings for a HTTP response to return directly to the eyeball if the condition is true. Note: `overrides` or `fixedResponse` must be set.
      */
     fixedResponse?: outputs.LoadBalancerRuleFixedResponse;
     /**
@@ -977,79 +1170,80 @@ export interface LoadBalancerRule {
      */
     name: string;
     /**
-     * The Load Balancer settings to alter if this rules condition is true. Note: overrides or fixedResponse must be set. See the field documentation below.
+     * The load balancer settings to alter if this rule's `condition` is true. Note: `overrides` or `fixedResponse` must be set.
      */
     overrides?: outputs.LoadBalancerRuleOverride[];
     /**
-     * Priority used when determining the order of rule execution. Lower values are executed first. If not provided list order will be used.
+     * Priority used when determining the order of rule execution. Lower values are executed first. If not provided, the list order will be used.
      */
     priority: number;
     /**
-     * Terminates indicates that if this rule is true no further rules should be executed. Note: setting a fixedResponse forces this field to true.
+     * Terminates indicates that if this rule is true no further rules should be executed. Note: setting a `fixedResponse` forces this field to `true`.
      */
     terminates: boolean;
 }
 
 export interface LoadBalancerRuleFixedResponse {
-    /**
-     * The value of the HTTP context-type header for this fixed response.
-     */
     contentType?: string;
-    /**
-     * The value of the HTTP location header for this fixed response.
-     */
     location?: string;
-    /**
-     * The text used as the html body for this fixed response.
-     */
     messageBody?: string;
-    /**
-     * The HTTP status code used for this fixed response.
-     */
     statusCode?: number;
 }
 
 export interface LoadBalancerRuleOverride {
     /**
-     * See countryPools above.
+     * Controls features that modify the routing of requests to pools and origins in response to dynamic conditions, such as during the interval between active health monitoring requests.
      */
-    countryPools?: outputs.LoadBalancerRuleOverrideCountryPool[];
+    adaptiveRoutings?: outputs.LoadBalancerRuleOverrideAdaptiveRouting[];
     /**
-     * See defaultPoolIds above.
+     * A set containing mappings of country codes to a list of pool IDs (ordered by their failover priority) for the given country.
      */
+    countryPools: outputs.LoadBalancerRuleOverrideCountryPool[];
     defaultPools?: string[];
-    /**
-     * See fallbackPoolId above.
-     */
     fallbackPool?: string;
     /**
-     * See popPools above.
+     * Controls location-based steering for non-proxied requests.
      */
-    popPools?: outputs.LoadBalancerRuleOverridePopPool[];
+    locationStrategies?: outputs.LoadBalancerRuleOverrideLocationStrategy[];
     /**
-     * See regionPools above.
+     * A set containing mappings of Cloudflare Point-of-Presence (PoP) identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). This feature is only available to enterprise customers.
      */
-    regionPools?: outputs.LoadBalancerRuleOverrideRegionPool[];
+    popPools: outputs.LoadBalancerRuleOverridePopPool[];
     /**
-     * See field above.
+     * Configures pool weights for random steering. When the `steering_policy="random"`, a random pool is selected with probability proportional to these pool weights.
+     */
+    randomSteerings?: outputs.LoadBalancerRuleOverrideRandomSteering[];
+    /**
+     * A set containing mappings of region codes to a list of pool IDs (ordered by their failover priority) for the given region.
+     */
+    regionPools: outputs.LoadBalancerRuleOverrideRegionPool[];
+    /**
+     * Specifies the type of session affinity the load balancer should use unless specified as `none` or `""` (default). With value `cookie`, on the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy then a new origin server is calculated and used. Value `ipCookie` behaves the same as `cookie` except the initial origin selection is stable and based on the client's IP address. Available values: `""`, `none`, `cookie`, `ipCookie`. Defaults to `none`.
      */
     sessionAffinity?: string;
     /**
-     * See field above.
+     * See `sessionAffinityAttributes`.
      */
     sessionAffinityAttributes?: {[key: string]: string};
     /**
-     * See field above.
+     * Time, in seconds, until this load balancer's session affinity cookie expires after being created. This parameter is ignored unless a supported session affinity policy is set. The current default of `82800` (23 hours) will be used unless `sessionAffinityTtl` is explicitly set. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. Valid values are between `1800` and `604800`.
      */
     sessionAffinityTtl?: number;
     /**
-     * See field above.
+     * The method the load balancer uses to determine the route to your origin. Value `off` uses `defaultPoolIds`. Value `geo` uses `popPools`/`countryPools`/`regionPools`. For non-proxied requests, the `country` for `countryPools` is determined by `locationStrategy`. Value `random` selects a pool randomly. Value `dynamicLatency` uses round trip time to select the closest pool in `defaultPoolIds` (requires pool health checks). Value `proximity` uses the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by `locationStrategy` for non-proxied requests. Value `""` maps to `geo` if you use `popPools`/`countryPools`/`regionPools` otherwise `off`. Available values: `off`, `geo`, `dynamicLatency`, `random`, `proximity`, `""` Defaults to `""`.
      */
     steeringPolicy?: string;
     /**
-     * See field above.
+     * Time to live (TTL) of the DNS entry for the IP address returned by this load balancer. This cannot be set for proxied load balancers. Defaults to `30`. Conflicts with `proxied`.
      */
     ttl?: number;
+}
+
+export interface LoadBalancerRuleOverrideAdaptiveRouting {
+    /**
+     * Extends zero-downtime failover of requests to healthy origins from alternate pools, when no healthy alternate exists in the same pool, according to the failover order defined by traffic and origin steering. When set `false`, zero-downtime failover will only occur between origins within the same pool. Defaults to `false`.
+     */
+    failoverAcrossPools?: boolean;
 }
 
 export interface LoadBalancerRuleOverrideCountryPool {
@@ -1058,9 +1252,20 @@ export interface LoadBalancerRuleOverrideCountryPool {
      */
     country: string;
     /**
-     * A list of pool IDs in failover priority to use for traffic reaching the given PoP.
+     * A list of pool IDs in failover priority to use in the given country.
      */
     poolIds: string[];
+}
+
+export interface LoadBalancerRuleOverrideLocationStrategy {
+    /**
+     * Determines the authoritative location when ECS is not preferred, does not exist in the request, or its GeoIP lookup is unsuccessful. Value `pop` will use the Cloudflare PoP location. Value `resolverIp` will use the DNS resolver GeoIP location. If the GeoIP lookup is unsuccessful, it will use the Cloudflare PoP location. Available values: `pop`, `resolverIp`. Defaults to `pop`.
+     */
+    mode?: string;
+    /**
+     * Whether the EDNS Client Subnet (ECS) GeoIP should be preferred as the authoritative location. Value `always` will always prefer ECS, `never` will never prefer ECS, `proximity` will prefer ECS only when `steering_policy="proximity"`, and `geo` will prefer ECS only when `steering_policy="geo"`. Available values: `always`, `never`, `proximity`, `geo`. Defaults to `proximity`.
+     */
+    preferEcs?: string;
 }
 
 export interface LoadBalancerRuleOverridePopPool {
@@ -1074,9 +1279,20 @@ export interface LoadBalancerRuleOverridePopPool {
     pop: string;
 }
 
+export interface LoadBalancerRuleOverrideRandomSteering {
+    /**
+     * The default weight for pools in the load balancer that are not specified in the `poolWeights` map.
+     */
+    defaultWeight?: number;
+    /**
+     * A mapping of pool IDs to custom weights. The weight is relative to other pools in the load balancer.
+     */
+    poolWeights?: {[key: string]: number};
+}
+
 export interface LoadBalancerRuleOverrideRegionPool {
     /**
-     * A list of pool IDs in failover priority to use for traffic reaching the given PoP.
+     * A list of pool IDs in failover priority to use in the given region.
      */
     poolIds: string[];
     /**
@@ -1553,9 +1769,9 @@ export interface PagesProjectSource {
 }
 
 export interface PagesProjectSourceConfig {
-    deploymentsEnabled: boolean;
+    deploymentsEnabled?: boolean;
     owner?: string;
-    prCommentsEnabled: boolean;
+    prCommentsEnabled?: boolean;
     previewBranchExcludes?: string[];
     previewBranchIncludes?: string[];
     previewDeploymentSetting?: string;
@@ -1563,7 +1779,7 @@ export interface PagesProjectSourceConfig {
      * The name of the branch that is used for the production environment.
      */
     productionBranch: string;
-    productionDeploymentEnabled: boolean;
+    productionDeploymentEnabled?: boolean;
     repoName?: string;
 }
 
@@ -1870,7 +2086,7 @@ export interface RulesetRuleActionParametersEdgeTtlStatusCodeTtlStatusCodeRange 
 export interface RulesetRuleActionParametersFromList {
     key: string;
     /**
-     * Name of the ruleset.
+     * Name of the ruleset. **Modifying this attribute will force creation of a new resource.**
      */
     name: string;
 }
@@ -1889,7 +2105,7 @@ export interface RulesetRuleActionParametersFromValueTargetUrl {
 export interface RulesetRuleActionParametersHeader {
     expression?: string;
     /**
-     * Name of the ruleset.
+     * Name of the ruleset. **Modifying this attribute will force creation of a new resource.**
      */
     name?: string;
     operation?: string;
@@ -1916,6 +2132,7 @@ export interface RulesetRuleActionParametersOverrides {
      * List of rules to apply to the ruleset.
      */
     rules?: outputs.RulesetRuleActionParametersOverridesRule[];
+    sensitivityLevel?: string;
     status?: string;
 }
 
@@ -2032,15 +2249,15 @@ export interface SpectrumApplicationOriginPortRange {
 
 export interface SplitTunnelTunnel {
     /**
-     * The address in CIDR format to include in the tunnel configuration. Conflicts with `"host"`.
+     * The address for the tunnel.
      */
     address?: string;
     /**
-     * The description of the tunnel.
+     * A description for the tunnel.
      */
     description?: string;
     /**
-     * The domain name to include in the tunnel configuration. Conflicts with `"address"`.
+     * The domain name for the tunnel.
      */
     host?: string;
 }
@@ -2240,6 +2457,14 @@ export interface UserAgentBlockingRuleConfiguration {
      * The exact user agent string to match. This value will be compared to the received User-Agent HTTP header value.
      */
     value: string;
+}
+
+export interface WorkerScriptAnalyticsEngineBinding {
+    dataset: string;
+    /**
+     * The name for the script. **Modifying this attribute will force creation of a new resource.**
+     */
+    name: string;
 }
 
 export interface WorkerScriptKvNamespaceBinding {

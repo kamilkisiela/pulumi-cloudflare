@@ -104,7 +104,7 @@ export class AccessIdentityProvider extends pulumi.CustomResource {
     }
 
     /**
-     * The account identifier to target for the resource. Conflicts with `zoneId`.
+     * The account identifier to target for the resource. Conflicts with `zoneId`. **Modifying this attribute will force creation of a new resource.**
      */
     public readonly accountId!: pulumi.Output<string | undefined>;
     /**
@@ -120,7 +120,7 @@ export class AccessIdentityProvider extends pulumi.CustomResource {
      */
     public readonly type!: pulumi.Output<string>;
     /**
-     * The zone identifier to target for the resource. Conflicts with `accountId`.
+     * The zone identifier to target for the resource. Conflicts with `accountId`. **Modifying this attribute will force creation of a new resource.**
      */
     public readonly zoneId!: pulumi.Output<string | undefined>;
 
@@ -166,7 +166,7 @@ export class AccessIdentityProvider extends pulumi.CustomResource {
  */
 export interface AccessIdentityProviderState {
     /**
-     * The account identifier to target for the resource. Conflicts with `zoneId`.
+     * The account identifier to target for the resource. Conflicts with `zoneId`. **Modifying this attribute will force creation of a new resource.**
      */
     accountId?: pulumi.Input<string>;
     /**
@@ -182,7 +182,7 @@ export interface AccessIdentityProviderState {
      */
     type?: pulumi.Input<string>;
     /**
-     * The zone identifier to target for the resource. Conflicts with `accountId`.
+     * The zone identifier to target for the resource. Conflicts with `accountId`. **Modifying this attribute will force creation of a new resource.**
      */
     zoneId?: pulumi.Input<string>;
 }
@@ -192,7 +192,7 @@ export interface AccessIdentityProviderState {
  */
 export interface AccessIdentityProviderArgs {
     /**
-     * The account identifier to target for the resource. Conflicts with `zoneId`.
+     * The account identifier to target for the resource. Conflicts with `zoneId`. **Modifying this attribute will force creation of a new resource.**
      */
     accountId?: pulumi.Input<string>;
     /**
@@ -208,7 +208,7 @@ export interface AccessIdentityProviderArgs {
      */
     type: pulumi.Input<string>;
     /**
-     * The zone identifier to target for the resource. Conflicts with `accountId`.
+     * The zone identifier to target for the resource. Conflicts with `accountId`. **Modifying this attribute will force creation of a new resource.**
      */
     zoneId?: pulumi.Input<string>;
 }

@@ -6,14 +6,17 @@ import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
 /**
- * Provides a Cloudflare Fallback Domain resource. Fallback domains are used to ignore DNS requests to a given list of domains. These DNS requests will be passed back to other DNS servers configured on existing network interfaces on the device.
+ * Provides a Cloudflare Fallback Domain resource. Fallback domains are
+ * used to ignore DNS requests to a given list of domains. These DNS
+ * requests will be passed back to other DNS servers configured on
+ * existing network interfaces on the device.
  *
  * ## Import
  *
- * Fallback Domains can be imported using the account identifer.
+ * # Fallback Domains for default device policies must use "default" as the policy ID.
  *
  * ```sh
- *  $ pulumi import cloudflare:index/fallbackDomain:FallbackDomain example 1d5fdc9e88c8a8c4518b068cd94331fe
+ *  $ pulumi import cloudflare:index/fallbackDomain:FallbackDomain example <account_id>/<policy_id>
  * ```
  */
 export class FallbackDomain extends pulumi.CustomResource {
@@ -45,13 +48,14 @@ export class FallbackDomain extends pulumi.CustomResource {
     }
 
     /**
-     * The account to which the device posture rule should be added.
+     * The account identifier to target for the resource.
      */
     public readonly accountId!: pulumi.Output<string>;
-    /**
-     * The value of the domain attributes (refer to the nested schema).
-     */
     public readonly domains!: pulumi.Output<outputs.FallbackDomainDomain[]>;
+    /**
+     * The settings policy for which to configure this fallback domain policy.
+     */
+    public readonly policyId!: pulumi.Output<string | undefined>;
 
     /**
      * Create a FallbackDomain resource with the given unique name, arguments, and options.
@@ -68,6 +72,7 @@ export class FallbackDomain extends pulumi.CustomResource {
             const state = argsOrState as FallbackDomainState | undefined;
             resourceInputs["accountId"] = state ? state.accountId : undefined;
             resourceInputs["domains"] = state ? state.domains : undefined;
+            resourceInputs["policyId"] = state ? state.policyId : undefined;
         } else {
             const args = argsOrState as FallbackDomainArgs | undefined;
             if ((!args || args.accountId === undefined) && !opts.urn) {
@@ -78,6 +83,7 @@ export class FallbackDomain extends pulumi.CustomResource {
             }
             resourceInputs["accountId"] = args ? args.accountId : undefined;
             resourceInputs["domains"] = args ? args.domains : undefined;
+            resourceInputs["policyId"] = args ? args.policyId : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(FallbackDomain.__pulumiType, name, resourceInputs, opts);
@@ -89,13 +95,14 @@ export class FallbackDomain extends pulumi.CustomResource {
  */
 export interface FallbackDomainState {
     /**
-     * The account to which the device posture rule should be added.
+     * The account identifier to target for the resource.
      */
     accountId?: pulumi.Input<string>;
-    /**
-     * The value of the domain attributes (refer to the nested schema).
-     */
     domains?: pulumi.Input<pulumi.Input<inputs.FallbackDomainDomain>[]>;
+    /**
+     * The settings policy for which to configure this fallback domain policy.
+     */
+    policyId?: pulumi.Input<string>;
 }
 
 /**
@@ -103,11 +110,12 @@ export interface FallbackDomainState {
  */
 export interface FallbackDomainArgs {
     /**
-     * The account to which the device posture rule should be added.
+     * The account identifier to target for the resource.
      */
     accountId: pulumi.Input<string>;
-    /**
-     * The value of the domain attributes (refer to the nested schema).
-     */
     domains: pulumi.Input<pulumi.Input<inputs.FallbackDomainDomain>[]>;
+    /**
+     * The settings policy for which to configure this fallback domain policy.
+     */
+    policyId?: pulumi.Input<string>;
 }

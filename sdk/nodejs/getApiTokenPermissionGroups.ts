@@ -4,6 +4,22 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * Use this data source to look up [API Token Permission Groups](https://developers.cloudflare.com/api/tokens/create/permissions).
+ * Commonly used as references within [`cloudflareToken`](https://www.terraform.io/docs/providers/cloudflare/r/api_token.html) resources.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as cloudflare from "@pulumi/cloudflare";
+ *
+ * const all = cloudflare.getApiTokenPermissionGroups({});
+ * export const dnsReadPermissionId = all.then(all => all.zone?["DNS Read"]);
+ * export const accountLbMonitorsAndReadId = all.then(all => all.account?["Load Balancing: Monitors and Pools Read"]);
+ * export const userMembershipsReadId = all.then(all => all.user?["Memberships Read"]);
+ * ```
+ */
 export function getApiTokenPermissionGroups(opts?: pulumi.InvokeOptions): Promise<GetApiTokenPermissionGroupsResult> {
     if (!opts) {
         opts = {}
@@ -19,8 +35,25 @@ export function getApiTokenPermissionGroups(opts?: pulumi.InvokeOptions): Promis
  */
 export interface GetApiTokenPermissionGroupsResult {
     /**
+     * Map of permissions for account level resources.
+     */
+    readonly account: {[key: string]: any};
+    /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    /**
+     * Map of all permissions available. Should not be used as some permissions will overlap resource scope. Instead, use resource level specific attributes.
+     *
+     * @deprecated Use specific account, zone or user attributes instead.
+     */
     readonly permissions: {[key: string]: any};
+    /**
+     * Map of permissions for user level resources.
+     */
+    readonly user: {[key: string]: any};
+    /**
+     * Map of permissions for zone level resources.
+     */
+    readonly zone: {[key: string]: any};
 }

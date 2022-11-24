@@ -97,7 +97,7 @@ export class List extends pulumi.CustomResource {
      */
     public readonly kind!: pulumi.Output<string>;
     /**
-     * The name of the list.
+     * The name of the list. **Modifying this attribute will force creation of a new resource.**
      */
     public readonly name!: pulumi.Output<string>;
 
@@ -159,7 +159,7 @@ export interface ListState {
      */
     kind?: pulumi.Input<string>;
     /**
-     * The name of the list.
+     * The name of the list. **Modifying this attribute will force creation of a new resource.**
      */
     name?: pulumi.Input<string>;
 }
@@ -182,7 +182,7 @@ export interface ListArgs {
      */
     kind: pulumi.Input<string>;
     /**
-     * The name of the list.
+     * The name of the list. **Modifying this attribute will force creation of a new resource.**
      */
     name: pulumi.Input<string>;
 }

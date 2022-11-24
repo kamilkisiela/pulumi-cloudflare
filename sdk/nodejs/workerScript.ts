@@ -85,6 +85,7 @@ export class WorkerScript extends pulumi.CustomResource {
         return obj['__pulumiType'] === WorkerScript.__pulumiType;
     }
 
+    public readonly analyticsEngineBindings!: pulumi.Output<outputs.WorkerScriptAnalyticsEngineBinding[] | undefined>;
     /**
      * The script content.
      */
@@ -95,7 +96,7 @@ export class WorkerScript extends pulumi.CustomResource {
      */
     public readonly module!: pulumi.Output<boolean | undefined>;
     /**
-     * The name for the script.
+     * The name for the script. **Modifying this attribute will force creation of a new resource.**
      */
     public readonly name!: pulumi.Output<string>;
     public readonly plainTextBindings!: pulumi.Output<outputs.WorkerScriptPlainTextBinding[] | undefined>;
@@ -117,6 +118,7 @@ export class WorkerScript extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as WorkerScriptState | undefined;
+            resourceInputs["analyticsEngineBindings"] = state ? state.analyticsEngineBindings : undefined;
             resourceInputs["content"] = state ? state.content : undefined;
             resourceInputs["kvNamespaceBindings"] = state ? state.kvNamespaceBindings : undefined;
             resourceInputs["module"] = state ? state.module : undefined;
@@ -134,6 +136,7 @@ export class WorkerScript extends pulumi.CustomResource {
             if ((!args || args.name === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'name'");
             }
+            resourceInputs["analyticsEngineBindings"] = args ? args.analyticsEngineBindings : undefined;
             resourceInputs["content"] = args ? args.content : undefined;
             resourceInputs["kvNamespaceBindings"] = args ? args.kvNamespaceBindings : undefined;
             resourceInputs["module"] = args ? args.module : undefined;
@@ -153,6 +156,7 @@ export class WorkerScript extends pulumi.CustomResource {
  * Input properties used for looking up and filtering WorkerScript resources.
  */
 export interface WorkerScriptState {
+    analyticsEngineBindings?: pulumi.Input<pulumi.Input<inputs.WorkerScriptAnalyticsEngineBinding>[]>;
     /**
      * The script content.
      */
@@ -163,7 +167,7 @@ export interface WorkerScriptState {
      */
     module?: pulumi.Input<boolean>;
     /**
-     * The name for the script.
+     * The name for the script. **Modifying this attribute will force creation of a new resource.**
      */
     name?: pulumi.Input<string>;
     plainTextBindings?: pulumi.Input<pulumi.Input<inputs.WorkerScriptPlainTextBinding>[]>;
@@ -177,6 +181,7 @@ export interface WorkerScriptState {
  * The set of arguments for constructing a WorkerScript resource.
  */
 export interface WorkerScriptArgs {
+    analyticsEngineBindings?: pulumi.Input<pulumi.Input<inputs.WorkerScriptAnalyticsEngineBinding>[]>;
     /**
      * The script content.
      */
@@ -187,7 +192,7 @@ export interface WorkerScriptArgs {
      */
     module?: pulumi.Input<boolean>;
     /**
-     * The name for the script.
+     * The name for the script. **Modifying this attribute will force creation of a new resource.**
      */
     name: pulumi.Input<string>;
     plainTextBindings?: pulumi.Input<pulumi.Input<inputs.WorkerScriptPlainTextBinding>[]>;

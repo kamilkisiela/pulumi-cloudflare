@@ -17,7 +17,7 @@ development: install_plugins provider build_sdks install_sdks
 
 build: install_plugins provider build_sdks install_sdks
 
-build_sdks: build_nodejs build_python build_go build_dotnet build_java
+build_sdks: build_nodejs
 
 install_go_sdk: 
 
@@ -25,7 +25,7 @@ install_java_sdk:
 
 install_python_sdk: 
 
-install_sdks: install_dotnet_sdk install_python_sdk install_nodejs_sdk install_java_sdk
+install_sdks: install_nodejs_sdk
 
 only_build: build
 

@@ -51,7 +51,7 @@ export class AccessGroup extends pulumi.CustomResource {
     }
 
     /**
-     * The account identifier to target for the resource. Conflicts with `zoneId`.
+     * The account identifier to target for the resource. Conflicts with `zoneId`. **Modifying this attribute will force creation of a new resource.**
      */
     public readonly accountId!: pulumi.Output<string | undefined>;
     public readonly excludes!: pulumi.Output<outputs.AccessGroupExclude[] | undefined>;
@@ -107,7 +107,7 @@ export class AccessGroup extends pulumi.CustomResource {
  */
 export interface AccessGroupState {
     /**
-     * The account identifier to target for the resource. Conflicts with `zoneId`.
+     * The account identifier to target for the resource. Conflicts with `zoneId`. **Modifying this attribute will force creation of a new resource.**
      */
     accountId?: pulumi.Input<string>;
     excludes?: pulumi.Input<pulumi.Input<inputs.AccessGroupExclude>[]>;
@@ -125,7 +125,7 @@ export interface AccessGroupState {
  */
 export interface AccessGroupArgs {
     /**
-     * The account identifier to target for the resource. Conflicts with `zoneId`.
+     * The account identifier to target for the resource. Conflicts with `zoneId`. **Modifying this attribute will force creation of a new resource.**
      */
     accountId?: pulumi.Input<string>;
     excludes?: pulumi.Input<pulumi.Input<inputs.AccessGroupExclude>[]>;
